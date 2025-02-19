@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname' => 'localhost',
-        'username' => 'gfliveun',
+        'username' => 'aqtdemos_gfliveun',
         'password' => 'cbRJH7chpjhslVwpmUhG',
-        'database' => 'gflivedb',
+        'database' => 'aqtdemos_gflivedb',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
