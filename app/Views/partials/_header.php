@@ -65,6 +65,8 @@ if ($generalSettings->pwa_status == 1): ?>
 if ($baseVars->rtl == true): ?>
 <link rel="stylesheet" href="<?= base_url('assets/css/rtl-2.5.min.css'); ?>">
 <?php endif; ?>
+<!-- flags -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/country-flags-css@1.1.2/dist/flat.min.css">
 <?= $generalSettings->google_adsense_code; ?>
 <?= $generalSettings->custom_header_codes; ?>
 </head>

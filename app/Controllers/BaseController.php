@@ -12,6 +12,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Config\Globals;
 use App\Models\AuthModel;
 use App\Models\CategoryModel;
+use App\Models\BusinessCategoryModel;
 use App\Models\CommonModel;
 use App\Models\CurrencyModel;
 use App\Models\LocationModel;
@@ -55,9 +56,11 @@ abstract class BaseController extends Controller
     public $pageModel;
     public $locationModel;
     public $categoryModel;
+    public $businesscategoryModel;    
     public $productModel;
     public $commonModel;
     public $generalSettings;
+    //public $membershipModel;
     public $paymentSettings;
     public $productSettings;
     public $settings;
@@ -94,8 +97,10 @@ abstract class BaseController extends Controller
         $this->pageModel = new PageModel();
         $this->locationModel = new LocationModel();
         $this->categoryModel = new CategoryModel();
+        $this->businesscategoryModel = new BusinessCategoryModel();        
         $this->productModel = new ProductModel();
         $this->commonModel = new CommonModel();
+        $this->membershipModel = new MembershipModel();
 
         //general settings
         $this->generalSettings = Globals::$generalSettings;

@@ -35,7 +35,6 @@ class CategoryController extends BaseAdminController
             redirectToUrl(adminUrl('categories?lang=' . selectedLangId()));
         }
         $data['parentCategories'] = $this->categoryModel->getParentCategories(true);
-        $q = cleanStr(inputGet('q'));
         if (!empty($q)) {
             $numRows = $this->categoryModel->getCategoriesSearchCount();
             $data['pager'] = paginate($this->perPage, $numRows);

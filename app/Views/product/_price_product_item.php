@@ -10,9 +10,10 @@
         } ?>
         <span class="price"><?= priceFormatted($product->price_discounted, $product->currency, $convertCurreny); ?></span>
         <?php if (!empty($product->discount_rate)): ?>
-        <del class="discount-original-price">
-            <?= priceFormatted($product->price, $product->currency, $convertCurreny); ?>
-        </del>
+        - <span class="discount-original-price">
+            <?= priceFormattedWOCurr($product->price, $product->currency, $convertCurreny); ?><span class="unit_info"> / <?=$gUnit=getUnits($product->id); ?></span>
+            <div class="moq_info"><?=getMOQ($gUnit, $product->id); ?></div>
+        </span>
     <?php endif;
     endif;
 endif; ?>

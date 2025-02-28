@@ -53,12 +53,18 @@ class Database extends Config
     public function __construct()
     {
         parent::__construct();
-
+       //Configurations to handle local environment db connections 
+       if($_SERVER['CI_ENVIRONMENT'] == 'development'){
+            $this->default['database'] = 'gflivedb';
+            $this->default['username'] = 'root';
+            $this->default['password'] = '';
+       }else{
         if (empty($this->default['database']) || empty($this->default['username'])) {
             $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
             $root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
             header('Location: ' . $root . 'install/welcome.php');
             exit();
         }
+       }
     }
 }

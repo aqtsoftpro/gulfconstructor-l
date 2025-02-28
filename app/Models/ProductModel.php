@@ -347,7 +347,7 @@ class ProductModel extends BaseModel
     {
         $this->builder->resetQuery();
         $this->builder->select("products.*,
-            users.username AS user_username, users.role_id AS role_id, users.slug AS user_slug,
+            users.username AS user_username, users.role_id AS role_id, users.slug AS user_slug, users.company AS company, users.country_id AS country_id, users.created_at AS created_at, users.business_type AS business_type,
             (SELECT title FROM product_details WHERE product_details.product_id = products.id AND product_details.lang_id = " . clrNum(selectedLangId()) . " LIMIT 1) AS title,
             (SELECT CONCAT(storage, '::', image_small) FROM images WHERE products.id = images.product_id ORDER BY is_main DESC, images.id DESC LIMIT 1) AS image,
             (SELECT CONCAT(storage, '::', image_small) FROM images WHERE products.id = images.product_id ORDER BY is_main DESC, images.id DESC LIMIT 1 OFFSET 1) AS image_second,

@@ -222,6 +222,16 @@ class AuthController extends BaseController
         if (authCheck()) {
             return redirect()->to(langBaseUrl());
         }
+        //country list
+        $data['countries'] = $this->locationModel->getActiveCountries();
+       
+        //business type
+        $data['business_type'] = $this->businesscategoryModel->getCategoriesByParentId(0);
+        $data['activeLangID'] = $this->activeLang->id;
+
+        //package details
+        $data['plans'] = $this->membershipModel->getPlans();
+
         $data['title'] = trans("register");
         $data['description'] = trans("register") . ' - ' . $this->baseVars->appName;
         $data['keywords'] = trans("register") . ',' . $this->baseVars->appName;

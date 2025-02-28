@@ -72,7 +72,7 @@ Events::on(
             } else {
                 $operation = 'UNKNOWN';
             }
-            $tablesAffected = ['ad_spaces', 'blog_categories', 'blog_images', 'blog_posts', 'blog_tags', 'brands', 'categories', 'categories_lang', 'custom_fields', 'custom_fields_category', 'custom_fields_options',
+            $tablesAffected = ['ad_spaces', 'blog_categories', 'blog_images', 'blog_posts', 'blog_tags', 'brands', 'categories', 'categories_lang', 'business_category', 'business_category_lang', 'custom_fields', 'custom_fields_category', 'custom_fields_options',
                 'fonts', 'general_settings', 'homepage_banners', 'languages', 'language_translations', 'location_cities', 'location_countries', 'location_states', 'pages', 'payment_gateways', 'payment_settings',
                 'product_settings', 'routes', 'settings', 'slider', 'storage_settings'];
             foreach ($tablesAffected as $table) {

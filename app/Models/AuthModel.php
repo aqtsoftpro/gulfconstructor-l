@@ -14,10 +14,16 @@ class AuthModel extends BaseModel
     public function inputValues()
     {
         return [
+            'country_id' => inputPost('country'), 
+            'role_id' => inputPost('user_type'),
+            'company' => inputPost('company'),
+            'business_type' => inputPost('business_type'),
+            'country_code' => inputPost('country_code'),
+            'phone_number' => inputPost('phone_number'),
             'email' => inputPost('email'),
             'first_name' => inputPost('first_name'),
             'last_name' => inputPost('last_name'),
-            'password' => inputPost('password')
+            'password' => inputPost('password'),
         ];
     }
 
@@ -223,7 +229,7 @@ class AuthModel extends BaseModel
         $data['username'] = $this->generateUniqueUsername($data['first_name'] . ' ' . $data['last_name']);
         $data['slug'] = $this->generateUniqueSlug($data['username']);
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        $data['role_id'] = 3;
+        //$data['role_id'] = 3;
         $data['user_type'] = 'registered';
         $data['banned'] = 0;
         $data['token'] = generateToken();
@@ -233,15 +239,39 @@ class AuthModel extends BaseModel
         if ($this->generalSettings->email_verification == 1) {
             $data['email_status'] = 0;
         }
+        
+        /*
         if ($this->generalSettings->vendor_verification_system != 1) {
             $data['role_id'] = 2;
         }
+        */
+
         $user = null;
         if (!empty($data['username']) && !empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             if ($this->builder->insert($data)) {
                 $id = $this->db->insertID();
                 $this->updateSlug($id);
                 $user = $this->getUser($id);
+                
+                //Check plan information
+                $membershipModel = new MembershipModel();
+                $planId = inputPost('package');
+                $plan = $membershipModel->getPlan($planId);
+                if (!empty($plan) && !empty($user)) {
+                    $dataTransaction = [
+                        'payment_method' => '',
+                        'payment_status' => ''
+                    ];
+                    if ($plan->is_free == 1) {
+                        $membershipModel->addUserFreePlan($plan, $user->id);
+                    } else {
+                        $membershipModel->addUserPlan($dataTransaction, $plan, $user->id);
+                    }
+                    //setSuccessMessage(trans("msg_updated"));
+                } else {
+                    //setErrorMessage(trans("msg_error"));
+                }
+
                 if (!empty($user)) {
                     if ($this->generalSettings->email_verification == 1) {
                         $this->addActivationEmail($user);

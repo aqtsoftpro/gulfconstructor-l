@@ -953,7 +953,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('general_settings');
         $email = inputPost('email');
-        $subject = "Modesy Test Email";
+        $subject = "GulfConstructor.com Test Email";
         $message = "<p>This is a test email.</p>";
         $model = new EmailModel();
         if (!empty($email)) {

@@ -1,23 +1,18 @@
 <div class="box">
     <div class="box-header with-border">
         <div class="left">
-            <h3 class="box-title"><?= trans('categories'); ?></h3>
+            <h3 class="box-title"><?= trans('business_categories'); ?></h3>
         </div>
         <div class="right">
-            <a href="<?= adminUrl('add-category'); ?>" class="btn btn-success btn-add-new">
-                <i class="fa fa-plus"></i>&nbsp;&nbsp;<?= trans('add_category'); ?>
+            <a href="<?= adminUrl('add-business-category'); ?>" class="btn btn-success btn-add-new">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;<?= trans('add_business_category'); ?>
             </a>
-            <?php if (isAdmin()): ?>
-                <a href="<?= adminUrl('bulk-category-upload'); ?>" class="btn btn-info btn-add-new">
-                    <i class="fa fa-upload"></i>&nbsp;&nbsp;<?= trans('bulk_category_upload'); ?>
-                </a>
-            <?php endif; ?>
         </div>
     </div>
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">
-                <form action="<?= adminUrl('categories'); ?>" method="get">
+                <form action="<?= adminUrl('business-categories'); ?>" method="get">
                     <div class="item-table-filter" style="width: 220px;">
                         <label><?= trans("search"); ?></label>
                         <input name="q" class="form-control" placeholder="<?= trans("search") ?>" type="search" value="<?= esc(inputGet('q', true)); ?>">
@@ -34,24 +29,17 @@
             if (!empty(cleanStr(inputGet('q')))): ?>
                 <div class="col-sm-12">
                     <div class="categories-panel-group nested-sortable">
-                        <?php if (!empty($searchCategories)):
-                            foreach ($searchCategories as $sCategory): ?>
+                        <?php
+                        if (!empty($searchBusinessCategories)):
+                            foreach ($searchBusinessCategories as $sCategory): ?>
                                 <div class="panel-group" draggable="false" style="cursor: default">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <div class="left">
                                                 <?= esc($sCategory->name); ?> <span class="id">( <?= trans("id") . ': ' . $sCategory->id; ?>)</span></div>
                                             <div class="right">
-                                                <?php if ($sCategory->is_featured == 1): ?>
-                                                    <label class="label bg-teal"><?= trans("featured"); ?></label>
-                                                <?php endif; ?>
-                                                <?php if ($sCategory->visibility == 1): ?>
-                                                    <label class="label bg-olive"><?= trans("visible"); ?></label>
-                                                <?php else: ?>
-                                                    <label class="label bg-danger"><?= trans("hidden"); ?></label>
-                                                <?php endif; ?>
                                                 <div class="btn-group">
-                                                    <a href="<?= adminUrl('edit-category/' . $sCategory->id); ?>" target="_blank" class="btn btn-sm btn-default btn-edit"><?= trans("edit"); ?></a>
+                                                    <a href="<?= adminUrl('edit-business-category/' . $sCategory->id); ?>" target="_blank" class="btn btn-sm btn-default btn-edit"><?= trans("edit"); ?></a>
                                                     <a href="javascript:void(0)" class="btn btn-sm btn-default btn-delete" data-item-id="<?= $sCategory->id; ?>"><i class="fa fa-trash-o"></i></a>
                                                 </div>
                                             </div>
@@ -61,7 +49,7 @@
                             <?php endforeach;
                         endif; ?>
 
-                        <?php if (empty($searchCategories)): ?>
+                        <?php if (empty($searchBusinessCategories)): ?>
                             <p class="text-center"><?= trans("no_records_found"); ?></p>
                         <?php endif; ?>
 
@@ -74,10 +62,10 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            <?php else: ?>
+                <?php else: ?>
                 <div class="col-sm-12">
                     <div class="categories-panel-group nested-sortable">
-                        <?= view('admin/category/_categories_print', ['categories' => $parentCategories]); ?>
+                        <?= view('admin/business_category/_business_categories_print', ['categories' => $parentCategories]); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -91,7 +79,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title"><?= trans('settings'); ?></h3>
             </div>
-            <form action="<?= base_url('Category/categorySettingsPost'); ?>" method="post">
+            <form action="<?= base_url('BusinessCategory/categorySettingsPost'); ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="box-body">
                     <div class="form-group">
@@ -123,9 +111,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <?= formCheckbox('sort_parent_categories_by_order', 1, trans("sort_parent_categories_by_category_order"), $generalSettings->sort_parent_categories_by_order); ?>
-                    </div>
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('save_changes'); ?></button>
@@ -147,7 +132,7 @@
     });
     $(document).on("click", ".panel .panel-heading .btn-delete", function (e) {
         var id = $(this).attr('data-item-id');
-        deleteItem("Category/deleteCategoryPost", id, "<?= trans("confirm_delete", true);?>");
+        deleteItem("BusinessCategory/deleteCategoryPost", id, "<?= trans("confirm_delete", true);?>");
     });
 
     $(document).on('click', '.panel-heading-parent', function (e) {
@@ -164,7 +149,7 @@
             'lang_id': <?= clrNum($lang); ?>
         };
         $.ajax({
-            url: MdsConfig.baseURL + '/Category/loadCategories',
+            url: MdsConfig.baseURL + '/BusinessCategory/loadCategories',
             type: 'POST',
             data: setAjaxData(data),
             success: function (response) {

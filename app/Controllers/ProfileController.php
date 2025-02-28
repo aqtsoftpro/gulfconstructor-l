@@ -423,6 +423,13 @@ class ProfileController extends BaseController
         $data['keywords'] = trans("update_profile") . ',' . $this->baseVars->appName;
         $data["activeTab"] = 'edit_profile';
         $data['userSession'] = getUserSession();
+
+       //country list
+        $data['countries'] = $this->locationModel->getActiveCountries();
+        //business type
+        $data['business_type'] = $this->businesscategoryModel->getCategoriesByParentId(0);
+        $data['activeLangID'] = $this->activeLang->id;
+        
         echo view('partials/_header', $data);
         echo view('settings/edit_profile', $data);
         echo view('partials/_footer');
@@ -452,10 +459,12 @@ class ProfileController extends BaseController
                 'first_name' => inputPost('first_name'),
                 'last_name' => inputPost('last_name'),
                 'phone_number' => inputPost('phone_number'),
+                'company' => inputPost('company'),
+                'business_type' => inputPost('business_type'),
+                'country_id' => inputPost('country'),
+                'country_code' => inputPost('country_code'),               
                 'tax_registration_number' => inputPost('tax_registration_number'),
                 'send_email_new_message' => inputPost('send_email_new_message'),
-                'cover_image_type' => inputPost('cover_image_type'),
-                'show_email' => inputPost('show_email'),
                 'show_phone' => inputPost('show_phone')
             ];
             //is email unique

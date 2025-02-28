@@ -11,6 +11,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Config\Globals;
 use App\Models\AuthModel;
 use App\Models\CategoryModel;
+use App\Models\BusinessCategoryModel;
 use App\Models\CommonModel;
 use App\Models\FileModel;
 use App\Models\SettingsModel;
@@ -49,6 +50,7 @@ abstract class BaseAdminController extends Controller
     public $authModel;
     public $commonModel;
     public $categoryModel;
+    public $businesscategoryModel;
     public $fileModel;
     public $generalSettings;
     public $paymentSettings;
@@ -79,6 +81,7 @@ abstract class BaseAdminController extends Controller
         $this->authModel = new AuthModel();
         $this->commonModel = new CommonModel();
         $this->categoryModel = new CategoryModel();
+        $this->businesscategoryModel = new BusinessCategoryModel();
         $this->fileModel = new FileModel();
         //check auth
         if (!authCheck()) {

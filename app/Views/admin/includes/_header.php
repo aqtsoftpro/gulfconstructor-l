@@ -265,6 +265,11 @@
                     <li class="nav-categories">
                         <a href="<?= adminUrl('categories'); ?>"><i class="fa fa-folder-open"></i> <span><?= trans("categories"); ?></span></a>
                     </li>
+                <?php endif;     
+                 if (hasPermission('business_categories')):?>
+                    <li class="nav-categories">
+                        <a href="<?= adminUrl('business-categories'); ?>"><i class="fa fa-folder-open"></i> <span><?= trans("business_categories"); ?></span></a>
+                    </li>  
                 <?php endif;
                 if (hasPermission('brands')):?>
                     <li class="nav-brands">

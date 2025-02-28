@@ -1,3 +1,37 @@
+<style>
+  .product-item .item-details .product-user a {
+    padding:5px;
+    border: 1px solid #ccc;
+    border-radius: 22px;
+    font-size: 0.675rem;
+  }
+  .product-item .item-details .product-user{
+    padding-top: 10px;
+    height: 45px;
+  }
+  .product-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}  
+ .product-item, .item-details, .product-title, .price, .discount-original-price{
+    font-size: .775rem !important;
+ }
+
+ .product-item .item-details .product-title a{
+    white-space:unset;
+    font-size: .675rem;
+    line-height: 0.8rem;
+ }
+ .product-item .item-meta, .product-item-horizontal .item-meta{
+    font-size: .595rem;
+    margin-top: 10px;
+ }
+ .discount-original-price{ color: #000; }
+ .unit_info, .moq_info { font-size: .475rem; color: #938484; font-weight: 700; }
+ .moq_info { color: #000; }
+ .moq_info > span { color: #938484; }
+
+</style>
 <?php $imgSecond = getProductItemImage($product, true); ?>
 <div class="product-item">
     <div class="row-custom<?= !empty($imgSecond) ? ' row-img-product-list' : ''; ?>">
@@ -37,26 +71,23 @@
                     <img src="<?= IMG_BASE64_1x1; ?>" data-src="<?= getProductItemImage($product); ?>" data-first="<?= getProductItemImage($product); ?>" data-second="<?= $imgSecond; ?>" class="lazyload img-fluid img-product" width="242" height="256" alt="<?= getProductTitle($product); ?>">
                 </a>
             <?php endif; ?>
-        </div>
+        </div>       
         <?php if ($product->is_promoted && $generalSettings->promoted_products == 1 && !empty($promotedBadge)): ?>
             <span class="badge badge-dark badge-promoted"><?= trans("featured"); ?></span>
         <?php endif; ?>
     </div>
     <div class="row-custom item-details">
         <h3 class="product-title">
-            <a href="<?= generateProductUrl($product); ?>"><?= getProductTitle($product); ?></a>
+            <a href="<?= generateProductUrl($product); ?>"><?= ContentLimitWords(getProductTitle($product), 9); ?></a>
         </h3>
-        <div class="product-user text-truncate">
-            <a href="<?= generateProfileUrl($product->user_slug, true); ?>"><?= esc($product->user_username); ?></a>
-        </div>
-        <div class="product-item-rating">
-            <?php if ($generalSettings->reviews == 1):
-                echo view('partials/_review_stars', ['rating' => $product->rating]);
-            endif; ?>
-            <span class="item-wishlist"><i class="icon-heart-o"></i><?= numberFormatShort($product->wishlist_count); ?></span>
-        </div>
         <div class="item-meta">
             <?= view('product/_price_product_item', ['product' => $product]); ?>
+        </div>         
+        <div class="item-meta">
+            <?= view('product/_country_company_product_item', ['product' => $product]); ?>
+        </div> 
+        <div class="product-user text-truncate">
+            <a href="<?= generateProfileUrl($product->user_slug, true); ?>" class="btn-contact">Contact Supplier</a>
         </div>
     </div>
 </div>

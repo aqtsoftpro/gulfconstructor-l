@@ -169,6 +169,16 @@ if (!function_exists('getProductTitle')) {
     }
 }
 
+//limit words
+if(!function_exists('ContentLimitWords')){
+    function ContentLimitWords($string, $word_limit){
+
+    $words = explode(" ",$string);
+    return implode(" ",array_splice($words,0,$word_limit)).'..';
+    }
+}
+
+
 //get product main image
 if (!function_exists('getProductMainImage')) {
     function getProductMainImage($productId, $sizeName)
@@ -374,6 +384,39 @@ if (!function_exists('priceFormatted')) {
     }
 }
 
+
+//price formatted without Currency
+if (!function_exists('priceFormattedWOCurr')) {
+    function priceFormattedWOCurr($price, $currencyCode, $convertCurrency = false)
+    {
+        $price = $price / 100;
+        //convert currency
+        if (Globals::$paymentSettings->currency_converter == 1 && $convertCurrency == true) {
+            $rate = 1;
+            $selectedCurrency = getSelectedCurrency();
+            if (isset($selectedCurrency) && isset($selectedCurrency->exchange_rate)) {
+                $rate = $selectedCurrency->exchange_rate;
+                $price = $price * $rate;
+                $currencyCode = $selectedCurrency->code;
+            }
+        }
+        $decPoint = '.';
+        $thousandsSep = ',';
+        if (!empty(Globals::$currencies[$currencyCode]) && Globals::$currencies[$currencyCode]->currency_format != 'us') {
+            $decPoint = ',';
+            $thousandsSep = '.';
+        }
+        if (!empty($price)) {
+            if (filter_var($price, FILTER_VALIDATE_INT) !== false) {
+                $price = number_format($price, 0, $decPoint, $thousandsSep);
+            } else {
+                $price = number_format($price, 2, $decPoint, $thousandsSep);
+            }
+        }
+        return priceCurrencyWOFormat($price, $currencyCode);
+    }
+}
+
 //price cart
 if (!function_exists('priceDecimal')) {
     function priceDecimal($price, $currencyCode, $convertCurrency = false, $moneySign = true)
@@ -417,7 +460,7 @@ if (!function_exists('priceCurrencyFormat')) {
     {
         if (!empty(Globals::$currencies[$currencyCode])) {
             $currency = Globals::$currencies[$currencyCode];
-            $space = '';
+            $space = ' ';
             if ($currency->space_money_symbol == 1) {
                 $space = ' ';
             }
@@ -434,6 +477,55 @@ if (!function_exists('priceCurrencyFormat')) {
                 $price = '<span>' . $currency->symbol . '</span>' . $space . $price;
             } else {
                 $price = $price . $space . '<span>' . $currency->symbol . '</span>';
+            }
+        }
+        return $currencyCode.$price;
+    }
+}
+
+// Get custom field of units
+if(!function_exists('getUnits')){
+    function getUnits($id){
+        $model = new \App\Models\FieldModel();
+        $fields = $model->getFieldByFilterKey('units');
+        $field = $model->getProductCustomFieldValues($fields->id, $id);
+
+        $data = unserialize($field[0]->name_data);
+        return ucfirst($data[0]['name']);
+    }
+}
+
+// Get custom field of MOQ
+if(!function_exists('getMOQ')){
+    function getMOQ($unit, $id){
+        $model = new \App\Models\FieldModel();
+        $fields = $model->getFieldByFilterKey('moq');
+        $f_label = unserialize($fields->name_array);
+        $field = $model->getProductCustomFieldValues($fields->id, $id);
+
+        //$data = unserialize($field[0]->name_data);
+        return $field[0]->field_value.' '.$unit.' <span>('.$f_label[0]['name'].')</span>';
+    }
+}
+
+//price without currency format
+if (!function_exists('priceCurrencyWOFormat')) {
+    function priceCurrencyWOFormat($price, $currencyCode)
+    {
+        if (!empty(Globals::$currencies[$currencyCode])) {
+            $currency = Globals::$currencies[$currencyCode];
+            $space = '';
+            if ($currency->space_money_symbol == 1) {
+                $space = ' ';
+            }
+            if ($currency->currency_format == 'us') {
+                if (strpos($price, '.00') !== false) {
+                    $price = str_replace('.00', '', $price);
+                }
+            } else {
+                if (strpos($price, ',00') !== false) {
+                    $price = str_replace(',00', '', $price);
+                }
             }
         }
         return $price;
@@ -893,6 +985,46 @@ if (!function_exists('generateFilterUrl')) {
             }
         }
         return $query;
+    }
+}
+
+//get country name from id
+if (!function_exists('getCountryNameById')) {
+    function getCountryNameById($id){
+        $model = new \App\Models\LocationModel();
+        $country = $model->getCountry($id);
+        return '<i class="cf-16 cf-'.strtolower($country->iso).'"></i> '.$country->name;
+    }
+}
+
+//get Number of Years after account creation
+if(!function_exists('getJoinedYears')){
+    function getJoinedYears($date){
+        // Get the current date
+        $jdte = date($date);
+
+        // Get the current date
+        $cdte = new DateTime();
+        $cyear = $cdte->format('Y');  
+
+        // Extract year
+        $jyear = date('Y', strtotime($jdte));
+        if((($cyear-$jyear)+1) > 1){
+            return (($cyear-$jyear)+1).' '.trans('years');
+        }else{
+            return (($cyear-$jyear)+1).' '.trans('year');
+        }
+    }
+}
+
+//get business type name from id
+if (!function_exists('getBusinessTypeNameById')) {
+    function getBusinessTypeNameById($id){
+        $model = new \App\Models\BusinessCategoryModel();
+        $business_t = $model->getCategory($id);
+        //$data['business_type'] = $this->businesscategoryModel->getCategoriesByParentId(0);
+        return str_replace(Globals::$generalSettings->site_lang.':::','',$business_t->name);
+        //return $business_t;
     }
 }
 

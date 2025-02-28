@@ -270,6 +270,14 @@ $postArray = [
     'Cart/removeFromCart',
     'Cart/getShippingMethodsByLocation',
     'Cart/walletBalancePaymentPost',
+    
+    //Business Category
+    'BusinessCategory/addBusinessCategoryPost',
+    'BusinessCategory/editBusinessCategoryPost',
+    'BusinessCategory/deleteCategoryPost',
+    'BusinessCategory/loadCategories',
+    'BusinessCategory/categorySettingsPost',
+
     //Category
     'Category/deleteBrandPost',
     'Category/editBrandPost',

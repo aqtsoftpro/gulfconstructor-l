@@ -828,7 +828,7 @@ if (!function_exists('getPermissionsArray')) {
             '8' => 'earnings', '9' => 'payouts', '10' => 'refund_requests', '11' => 'products', '12' => 'quote_requests', '13' => 'categories', '14' => 'custom_fields',
             '15' => 'pages', '16' => 'blog', '17' => 'location', '18' => 'membership', '19' => 'help_center', '20' => 'storage', '21' => 'cache_system', '22' => 'seo_tools',
             '23' => 'ad_spaces', '24' => 'contact_messages', '25' => 'reviews', '26' => 'comments', '27' => 'abuse_reports', '28' => 'newsletter', '29' => 'preferences',
-            '30' => 'general_settings', '31' => 'product_settings', '32' => 'payment_settings', '33' => 'brands', '34' => 'chat_messages', '35' => 'payments'];
+            '30' => 'general_settings', '31' => 'product_settings', '32' => 'payment_settings', '33' => 'brands', '34' => 'chat_messages', '35' => 'payments', '36' => 'business_categories'];
     }
 }
 

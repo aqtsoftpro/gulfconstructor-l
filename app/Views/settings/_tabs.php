@@ -56,7 +56,9 @@
                     <?= trans("affiliate_links"); ?>
                 </a>
             </li>
-        <?php endif; ?>
+        <?php endif;
+        if (authCheck() && user()->is_used_free_plan == 0): 
+        ?>
         <li class="nav-item <?= $activeTab == 'social_media' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= generateUrl("settings", "social_media"); ?>">
                 <div class="icon">
@@ -70,6 +72,9 @@
                 <?= trans("social_media"); ?>
             </a>
         </li>
+        <?php
+            endif;
+        ?>
         <li class="nav-item <?= $activeTab == 'change_password' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= generateUrl("settings", "change_password"); ?>">
                 <div class="icon">
