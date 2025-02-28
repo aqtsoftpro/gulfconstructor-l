@@ -996,7 +996,9 @@ if (!function_exists('getCountryNameById')) {
     function getCountryNameById($id){
         $model = new \App\Models\LocationModel();
         $country = $model->getCountry($id);
-        return '<i class="cf-16 cf-'.strtolower($country->iso).'"></i> '.$country->name;
+        if(isset($country) && !empty($country)){
+           return '<i class="cf-16 cf-'.strtolower($country->iso).'"></i> '.$country->name;
+        }else{ return ''; }
     }
 }
 
