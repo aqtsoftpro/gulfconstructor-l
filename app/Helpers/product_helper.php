@@ -1027,9 +1027,10 @@ if (!function_exists('getBusinessTypeNameById')) {
     function getBusinessTypeNameById($id){
         $model = new \App\Models\BusinessCategoryModel();
         $business_t = $model->getCategory($id);
-        //$data['business_type'] = $this->businesscategoryModel->getCategoriesByParentId(0);
-        return str_replace(Globals::$generalSettings->site_lang.':::','',$business_t->name);
-        //return $business_t;
+
+        if(isset($business_t->name) && !empty($business_t->name)){    
+            return str_replace(Globals::$generalSettings->site_lang.':::','',$business_t->name);
+        }else{ return ''; }
     }
 }
 
