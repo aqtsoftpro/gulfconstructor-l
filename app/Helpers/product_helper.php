@@ -491,8 +491,10 @@ if(!function_exists('getUnits')){
        
         if(isset($fields) && !empty($fields)){
             $field = $model->getProductCustomFieldValues($fields->id, $id);
-            $data = unserialize($field[0]->name_data);
-            return ucfirst($data[0]['name']);
+            if(isset($field) && !empty($field)){
+                $data = unserialize($field[0]->name_data);
+                return ucfirst($data[0]['name']);
+            }else{ return ''; }
         }else{ return ''; }
     }
 }
