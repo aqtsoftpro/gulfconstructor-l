@@ -489,7 +489,7 @@ if(!function_exists('getUnits')){
         $model = new \App\Models\FieldModel();
         $fields = $model->getFieldByFilterKey('units');
        
-        if(!is_null($fields->id)){
+        if(isset($fields) && !empty($fields)){
             $field = $model->getProductCustomFieldValues($fields->id, $id);
             $data = unserialize($field[0]->name_data);
             return ucfirst($data[0]['name']);
@@ -503,7 +503,7 @@ if(!function_exists('getMOQ')){
         $model = new \App\Models\FieldModel();
         $fields = $model->getFieldByFilterKey('moq');
         $f_label = unserialize($fields->name_array);
-        if(!is_null($fields->id)){
+        if(isset($fields) && !empty($fields)){
             $field = $model->getProductCustomFieldValues($fields->id, $id);
             return $field[0]->field_value.' '.$unit.' <span>('.$f_label[0]['name'].')</span>';
         }else{ return ''; }
