@@ -502,8 +502,8 @@ if(!function_exists('getMOQ')){
     function getMOQ($unit, $id){
         $model = new \App\Models\FieldModel();
         $fields = $model->getFieldByFilterKey('moq');
-        $f_label = unserialize($fields->name_array);
         if(isset($fields) && !empty($fields)){
+            $f_label = unserialize($fields->name_array);
             $field = $model->getProductCustomFieldValues($fields->id, $id);
             return $field[0]->field_value.' '.$unit.' <span>('.$f_label[0]['name'].')</span>';
         }else{ return ''; }
