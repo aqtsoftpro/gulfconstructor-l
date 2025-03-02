@@ -57,6 +57,8 @@
         max-width: 15%;
     }
 }  
+
+.unit_info, .moq_info { font-size: .75rem; color: #938484; font-weight: 700; }
 </style>
 <div id="wrapper">
     <div class="container">
