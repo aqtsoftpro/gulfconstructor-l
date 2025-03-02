@@ -58,7 +58,7 @@
     }
 }  
 
-.unit_info, .moq_info { font-size: .75rem; color: #938484; font-weight: 700; }
+#product_details_price_container .unit_info, .moq_info { font-size: .895rem !important; color: #938484; font-weight: 700; }
 </style>
 <div id="wrapper">
     <div class="container">
