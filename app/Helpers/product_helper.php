@@ -513,6 +513,24 @@ if(!function_exists('getMOQ')){
     }
 }
 
+/** Get Seller information */
+
+// get seller logo
+
+// get seller name
+
+// get seller phone
+
+// get seller status
+
+// get seller company
+
+// get seller country info
+
+// get seller business info
+
+
+
 //price without currency format
 if (!function_exists('priceCurrencyWOFormat')) {
     function priceCurrencyWOFormat($price, $currencyCode)

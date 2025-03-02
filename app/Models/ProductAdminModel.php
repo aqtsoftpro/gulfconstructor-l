@@ -17,7 +17,7 @@ class ProductAdminModel extends BaseModel
             $langId = $this->activeLang->id;
         }
         $this->builder->resetQuery();
-        $this->builder->select('products.*, users.username AS user_username,  users.slug AS user_slug')
+        $this->builder->select('products.*, users.username AS user_username,  users.slug AS user_slug, users.company AS company, users.country_id AS country_id, users.created_at AS created_at, users.business_type AS business_type')
             ->select('(SELECT title FROM product_details WHERE product_details.product_id = products.id AND product_details.lang_id = ' . clrNum($langId) . ' LIMIT 1) AS title')
             ->select("(SELECT GROUP_CONCAT(lang_id, '" . CAT_QUERY_SEPARATOR_SUB . "', name SEPARATOR '" . CAT_QUERY_SEPARATOR . "') FROM categories_lang WHERE categories_lang.category_id = products.category_id) AS category_name")
             ->select("(SELECT CONCAT(storage, '::', image_small) FROM images WHERE products.id = images.product_id ORDER BY is_main DESC, images.id DESC LIMIT 1) AS image")

@@ -729,7 +729,7 @@ class ProductModel extends BaseModel
             $this->builder->join('users', 'products.user_id = users.id AND users.banned = 0');
         }
         $this->builder->where('users.vacation_mode', 0);
-        $this->builder->select('products.*, users.username as user_username, users.role_id as user_role, users.slug as user_slug,
+        $this->builder->select('products.*, users.username as user_username, users.role_id as user_role, users.slug as user_slug, users.company AS company, users.country_id AS country_id, users.created_at AS created_at, users.business_type AS business_type, users.country_code AS country_code, users.phone_number AS phone_number,
               (SELECT name_data FROM brands WHERE products.brand_id = brands.id) AS brand_name_data')
             ->where('products.slug', strSlug($slug))->where('products.is_draft', 0)->where('products.is_deleted', 0);
         if ($this->generalSettings->show_sold_products != 1) {

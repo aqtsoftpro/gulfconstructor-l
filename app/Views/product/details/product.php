@@ -1,3 +1,63 @@
+<style>
+    .col-product-vendor-info{
+    border: 1px #c3dfed;
+    border-radius: 4px;
+    max-width: 95%;
+    padding: 15px;
+    margin: auto;
+    margin-top: 0;
+    height: 215px;
+    background: linear-gradient(to top, #ffffff 40%, #c3dfed 120%);
+}
+    .col-product-vendor-info .meta-box{
+        font-size: 0.595rem;
+        font-weight: 500;
+    }
+    .col-product-vendor-info .img-thumbnail{
+        border:none;
+        border-radius: 0;
+        padding:0;
+    }
+    .col-product-vendor-info .vendor_title{
+        font-size: 0.795rem;
+        font-weight: 500;
+        margin-left: 5px;
+        vertical-align: sub;
+    }
+    .col-product-vendor-info .margin-div{ margin-bottom: 15px; }
+    .col-product-vendor-info .product-user { text-align: center; }
+    .col-product-vendor-info .product-user a {
+        font-weight: 600;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 22px;
+        font-size: 0.675rem;
+}
+ @media (min-width: 576px) {
+    .col-product-details-right{
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+    }
+    .col-product-vendor-info{
+        -ms-flex: 0 0 27%;
+        flex: 0 0 27%;
+        max-width: 27%;
+    }
+ }
+ @media (min-width: 992px) {
+    .col-product-details-right {
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 30%;
+    }
+    .col-product-vendor-info{
+        -ms-flex: 0 0 27%;
+        flex: 0 0 27%;
+        max-width: 15%;
+    }
+}  
+</style>
 <div id="wrapper">
     <div class="container">
         <div class="row">
@@ -22,9 +82,16 @@
                                 <?= view("product/details/_preview"); ?>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-lg-6 col-product-details-right">
+                        <div class="col-12 col-sm-12 col-lg-4 col-product-details-right">
                             <div id="response_product_details" class="product-content-details">
                                 <?= view("product/details/_product_details"); ?>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-lg-2 col-product-vendor-info">
+                            <?= view("product/_product_vendor_meta_info"); ?>
+                            <?= view("product/_country_company_product_item"); ?>
+                            <div class="product-user">
+                                <a href="<?= generateProfileUrl($product->user_slug, true); ?>" class="btn-contact">Contact Supplier</a>
                             </div>
                         </div>
                     </div>

@@ -5,9 +5,9 @@
 <div class="col-sm-12 mobile-nav-buttons">
 <?php if ($generalSettings->multi_vendor_system == 1):
 if (authCheck()): ?>
-<a href="<?= generateDashUrl("add_product"); ?>" class="btn btn-md btn-custom btn-block"><?= trans("sell_now"); ?></a>
+<a href="<?= generateDashUrl("add_product"); ?>" class="btn btn-md btn-custom btn-block"><?= trans("become_a_supplier"); ?></a>
 <?php else: ?>
-<button type="button" class="btn btn-md btn-custom btn-block close-menu-click" data-toggle="modal" data-target="#loginModal" aria-label="mobile-sell-now"><?= trans("sell_now"); ?></button>
+<button type="button" class="btn btn-md btn-custom btn-block close-menu-click" data-toggle="modal" data-target="#loginModal" aria-label="mobile-sell-now"><?= trans("become_a_supplier"); ?></button>
 <?php endif;
 endif; ?>
 </div>

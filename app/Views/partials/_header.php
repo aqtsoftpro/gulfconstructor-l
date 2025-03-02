@@ -69,6 +69,14 @@ if ($baseVars->rtl == true): ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/country-flags-css@1.1.2/dist/flat.min.css">
 <?= $generalSettings->google_adsense_code; ?>
 <?= $generalSettings->custom_header_codes; ?>
+<style>
+.target-icon {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    font-weight: 600;
+}
+</style>
 </head>
 <body>
 <header id="header">
@@ -105,15 +113,18 @@ if ($baseVars->rtl == true): ?>
 </a>
 </li>
 <?php endif; ?>
+<?php if ($generalSettings->multi_vendor_system == 1): ?>
+<li class="nav-item li-main-nav-right"><a href="#"><img src="<?=base_url('assets/img/target.png');?>" style="display:inline-block;"><span class="label-nav-icon target-icon"><?= trans("request_for_quote"); ?></span></a></li>
+<?php endif; ?>
 <li class="nav-item li-main-nav-right"><a href="<?= generateUrl('wishlist'); ?>"><i class="icon-heart-o"></i><span class="label-nav-icon"><?= trans("wishlist"); ?></span></a></li>
 <?php if (authCheck()): ?>
 <?php if ($generalSettings->multi_vendor_system == 1): ?>
-<li class="nav-item m-r-0"><a href="<?= generateDashUrl("add_product"); ?>" class="btn btn-md btn-custom btn-sell-now m-r-0"><?= trans("sell_now"); ?></a></li>
+<li class="nav-item m-r-0"><a href="<?= generateDashUrl("add_product"); ?>" class="btn btn-md btn-custom btn-sell-now m-r-0"><?= trans("become_a_supplier"); ?></a></li>
 <?php endif;
 else: ?>
 <?php if ($generalSettings->multi_vendor_system == 1): ?>
 <li class="nav-item m-r-0">
-<button type="button" class="btn btn-md btn-custom btn-sell-now m-r-0" data-toggle="modal" data-target="#loginModal" aria-label="sell-now"><?= trans("sell_now"); ?></button>
+<button type="button" class="btn btn-md btn-custom btn-sell-now m-r-0" data-toggle="modal" data-target="#loginModal" aria-label="sell-now"><?= trans("become_a_supplier"); ?></button>
 </li>
 <?php endif;
 endif; ?>

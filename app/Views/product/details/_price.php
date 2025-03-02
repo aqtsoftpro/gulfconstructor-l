@@ -17,11 +17,10 @@
                 }
                 if (!empty($discountRate)): ?>
                     <strong class="lbl-price">
-                        <?= priceFormatted($priceDiscounted, $product->currency, $convertCurreny); ?>
-                        <b class="discount-original-price">
-                            <?= priceFormatted($price, $product->currency, $convertCurreny); ?>
-                            <span class="price-line"></span>
-                        </b>
+                        <?= priceFormatted($priceDiscounted, $product->currency, $convertCurreny); ?> - 
+                        <?= priceFormattedWOCurr($product->price, $product->currency, $convertCurreny); ?>
+                        <span class="unit_info"> / <?=$gUnit=getUnits($product->id); ?></span>                     
+                          <div class="moq_info"><?=getMOQ($gUnit, $product->id); ?></div>
                     </strong>
                     <div class="discount-rate">
                         -<?= discountRateFormat($discountRate); ?>

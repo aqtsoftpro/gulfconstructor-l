@@ -1,3 +1,16 @@
+<style>
+.product-add-to-cart-container .button-container-wishlist {
+    display: block;
+    clear: both;
+}    
+.unit_info {
+    font-size: 0.895rem;
+    display: inline-block;
+    vertical-align: bottom;
+}
+.moq_info { font-size: 0.895rem; }
+.moq_info > span { color: #bdbdbd; }
+</style>
 <div class="row">
     <div class="col-12">
         <?php if ($product->product_type == 'digital'): ?>
@@ -55,7 +68,7 @@
                 <?php endif;
             endif; ?>
         </div>
-        <div class="row-custom details">
+       <!-- <div class="row-custom details">
             <?php if ($product->listing_type != 'ordinary_listing' && $product->product_type != 'digital'): ?>
                 <div class="item-details">
                     <div class="left">
@@ -113,7 +126,9 @@
                 <?php endforeach;
             endif; ?>
         </div>
-    </div>
+   
+   !--> 
+   </div>
 </div>
 
 <?php if ($product->listing_type == 'sell_on_site' || $product->listing_type == 'license_key') {
